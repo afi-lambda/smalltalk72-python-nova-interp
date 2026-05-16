@@ -70,8 +70,10 @@ Smalltalk-72 method activation.
 
 ```
 python3 st72.py        → 10/10 eval unit tests
-python3 st72_tests.py  → 11/11 integration test groups
+python3 st72_tests.py  → 11/11 integration test groups (44 individual checks)
 ```
+
+Tested on Raspberry Pi (Linux aarch64, Python 3.13).
 
 ## Limitations
 
