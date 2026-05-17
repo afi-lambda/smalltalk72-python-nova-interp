@@ -12,12 +12,12 @@ Project: /home/alain/smalltalk72-python-nova-interp
 
 ## Summary
 - Total unique `to` definitions parsed: 61
-- Implemented: 38
-- Partial: 1
+- Implemented: 39
+- Partial: 0
 - Missing: 22
 
 ## Registered primitives detected
-#, -, ::, Atom, Number, addto, again, apply, apret, atom, class, core, cr, done, eq, ev, evapply, expand, false, fetch, float, get, getvec, if, is, isnew, match, mem, mkins, nprint, null, number, peekr, print, put, qfet, quot, read, repeat, rself, string, t, to, vector
+#, -, ::, Atom, Number, addto, again, apply, apret, arec, atom, class, core, cr, done, eq, ev, evapply, expand, false, fetch, float, get, getvec, if, is, isnew, match, mem, mkins, nprint, null, number, peekr, print, put, qfet, quot, read, repeat, rself, string, t, to, vector
 
 ## CODE-tagged entries
 | to name | CODE | status | mapped primitive |
@@ -50,7 +50,7 @@ Project: /home/alain/smalltalk72-python-nova-interp
 | `addto` | `addto func v w` |  | implemented | `addto` | mapped to primitive 'addto' |
 | `again` | `again` | 6 | implemented | `again` | mapped to primitive 'again' |
 | `apply` | `apply x y` |  | implemented | `apply` | mapped to primitive 'apply' |
-| `arec` | `arec x y` |  | partial | `arec` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `arec` | `arec x y` |  | implemented | `arec` | mapped to primitive 'arec' (minimal local lookup/bind) |
 | `atom` | `atom x y` | 29 | implemented | `atom` | mapped to primitive 'atom' |
 | `button` | `button n` |  | missing | `button` | no direct runtime primitive registration found |
 | `class` | `class x y` |  | implemented | `class` | mapped to primitive 'class' |

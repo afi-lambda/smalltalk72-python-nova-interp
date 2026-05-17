@@ -2,7 +2,7 @@ import pytest
 
 from st72 import ST72, NIL, EMPTY, AR_PC, AR_INST
 from st72_prims import (
-    register_all, prim_get, prim_mem, prim_null, prim_number, prim_peekr, prim_qfet,
+    register_all, prim_arec, prim_get, prim_mem, prim_null, prim_number, prim_peekr, prim_qfet,
     prim_put, prim_match, prim_mkins, prim_isnew, prim_fetch,
 )
 from st72_reader import Reader
@@ -162,4 +162,23 @@ def test_qfet_and_peekr_no_glob_return_nil():
     prim_peekr(st)
     assert st.VALUE == NIL
     prim_qfet(st)
+    assert st.VALUE == NIL
+
+
+def test_prim_arec_lookup_set_and_missing():
+    st, _ = make_st()
+    key, key2 = st.atoms.intern("k"), st.atoms.intern("k2")
+    val = st.intern_int(21)
+
+    ar = ctx(st, [key, val, st.A_PER])
+    prim_arec(st)
+    assert st.VALUE == val
+    assert st._find(key, ar) == val
+
+    ctx(st, [key, st.A_PER])
+    prim_arec(st)
+    assert st.VALUE == NIL
+
+    ctx(st, [key2, st.A_PER])
+    prim_arec(st)
     assert st.VALUE == NIL

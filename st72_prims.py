@@ -904,6 +904,23 @@ def prim_print(st: 'ST72'):
     st._eret()
 
 
+def prim_arec(st: 'ST72'):
+    """Minimal arec: `arec x` -> local lookup, `arec x y` -> local bind."""
+    key = st._apc()
+    if key == st.A_PER:
+        st._sval(NIL)
+        st._eret()
+        return
+    if st._peek(st.A_PER):
+        st._sval(st._find(key, st.SELF) or NIL)
+        st._eret()
+        return
+    val = st._apc()
+    st._put(key, val, st.SELF)
+    st._sval(val)
+    st._eret()
+
+
 # ---------------------------------------------------------------------------
 # Registration
 # ---------------------------------------------------------------------------
@@ -956,6 +973,7 @@ def register_all(st: 'ST72'):
         ("float",       prim_number,      True),
         ("read",        prim_qfet,        True),
         ("print",       prim_print,       True),
+        ("arec",        prim_arec,        True),
         ("addto",       prim_put,         True),
         ("t",           prim_get,         True),
         ("peekr",       prim_peekr,       True),
