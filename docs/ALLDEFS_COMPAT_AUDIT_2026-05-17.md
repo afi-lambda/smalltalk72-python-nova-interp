@@ -8,16 +8,16 @@ Project: /home/alain/smalltalk72-python-nova-interp
 - Parsed `st72_prims.py` for names registered in `register_all(st)`.
 - Applied explicit symbol/name mapping: `@->quot`, `^->apret`, `:->fetch`, `?->match`, `PUT->put`, `GET->get`, `falseclass->false`.
 - Classified each ALLDEFS `to` as `implemented`, `partial`, or `missing`.
-- `partial` includes entries loadable through non-CODE bootstrap path (where applicable).
+- `nil` is classified `implemented` via VM core global binding (not a primitive alias).
 
 ## Summary
 - Total unique `to` definitions parsed: 61
-- Implemented: 36
-- Partial: 3
+- Implemented: 38
+- Partial: 1
 - Missing: 22
 
 ## Registered primitives detected
-#, -, ::, Atom, Number, addto, again, apply, apret, atom, class, core, cr, done, eq, ev, evapply, expand, false, fetch, float, get, getvec, if, is, isnew, match, mem, mkins, nprint, null, number, peekr, put, qfet, quot, read, repeat, rself, string, t, to, vector
+#, -, ::, Atom, Number, addto, again, apply, apret, atom, class, core, cr, done, eq, ev, evapply, expand, false, fetch, float, get, getvec, if, is, isnew, match, mem, mkins, nprint, null, number, peekr, print, put, qfet, quot, read, repeat, rself, string, t, to, vector
 
 ## CODE-tagged entries
 | to name | CODE | status | mapped primitive |
@@ -85,11 +85,11 @@ Project: /home/alain/smalltalk72-python-nova-interp
 | `mx` | `mx` |  | missing | `mx` | no direct runtime primitive registration found |
 | `my` | `my` |  | missing | `my` | no direct runtime primitive registration found |
 | `newchars` | `newchars fil i j new old str` |  | missing | `newchars` | no direct runtime primitive registration found |
-| `nil` | `nil x` |  | partial | `nil` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `nil` | `nil x` |  | implemented | `nil` | core global 'nil' is pre-bound in VM init (identity-distinct from false) |
 | `nprint` | `nprint digit n` |  | implemented | `nprint` | mapped to primitive 'nprint' |
 | `null` | `null x` |  | implemented | `null` | mapped to primitive 'null' |
 | `number` | `number x y :: nprint` |  | implemented | `number` | mapped to primitive 'number' |
-| `print` | `print` |  | partial | `print` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `print` | `print` |  | implemented | `print` | mapped to primitive 'print' |
 | `PUT` | `PUT x y z` |  | implemented | `put` | mapped to primitive 'put' |
 | `read` | `read` | 2 | implemented | `read` | mapped to primitive 'read' |
 | `redo` | `redo` |  | missing | `redo` | no direct runtime primitive registration found |
@@ -109,4 +109,4 @@ Project: /home/alain/smalltalk72-python-nova-interp
 - No file I/O (Alto sector-based storage)
 
 ## Verdict
-Partial compatibility with ALLDEFS: key core primitives are present; additional non-CODE definitions can now be live-loaded via optional bootstrap, but many system/display/file entries remain unavailable.
+Partial compatibility with ALLDEFS: key core primitives are present; additional non-CODE definitions can now be live-loaded via optional bootstrap, while display/graphics and device/file entries remain out of scope.
