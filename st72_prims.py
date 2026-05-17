@@ -897,6 +897,13 @@ def prim_peekr(st: 'ST72'):
     st._aret()
 
 
+def prim_print(st: 'ST72'):
+    """Minimal print: evaluate next token, print repr, return value."""
+    st._fetch_inner()
+    print(st.value_repr(st.VALUE))
+    st._eret()
+
+
 # ---------------------------------------------------------------------------
 # Registration
 # ---------------------------------------------------------------------------
@@ -948,6 +955,7 @@ def register_all(st: 'ST72'):
         ("vector",      prim_atom,        True),
         ("float",       prim_number,      True),
         ("read",        prim_qfet,        True),
+        ("print",       prim_print,       True),
         ("addto",       prim_put,         True),
         ("t",           prim_get,         True),
         ("peekr",       prim_peekr,       True),
