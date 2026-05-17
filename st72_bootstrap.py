@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from st72_reader import Reader
@@ -12,7 +11,25 @@ _SKIP_NAMES = {
     "dclear", "dcomp", "dmove", "dmovec", "go", "goto", "turn",
 }
 
-_TO_HEAD = re.compile(r"(?m)^\s*to\s+([^\n(]+?)\s*(?=\()")
+def _iter_to_heads(text: str):
+    """Yield (head, paren_index) for lines starting with `to ...(`."""
+    i, n = 0, len(text)
+    while i < n:
+        j = text.find("\n", i)
+        if j < 0:
+            j = n
+        line = text[i:j]
+        stripped = line.lstrip()
+        if stripped.startswith("to "):
+            rel = line.find("to")
+            to_start = i + rel
+            head_start = to_start + 3
+            paren = text.find("(", head_start, j)
+            if paren != -1:
+                head = " ".join(text[head_start:paren].split())
+                if head:
+                    yield head, paren
+        i = j + 1
 
 
 def _extract_balanced(text: str, start: int) -> tuple[str | None, int]:
@@ -45,12 +62,11 @@ def load_alldefs_kernel(st, path: str, *, strict: bool = False) -> dict:
     r = Reader(st)
     stats = {"loaded": 0, "skipped_code": 0, "skipped_unsupported": 0, "failed": 0}
 
-    for m in _TO_HEAD.finditer(text):
-        head = " ".join(m.group(1).split())
+    for head, paren_idx in _iter_to_heads(text):
         if not head:
             continue
         name = head.split()[0]
-        body, _ = _extract_balanced(text, m.end())
+        body, _ = _extract_balanced(text, paren_idx)
         if not body:
             stats["failed"] += 1
             if strict:
