@@ -102,6 +102,9 @@ Project: /home/alain/smalltalk72-python-nova-interp
 | `TTY` | `TTY` |  | missing | `TTY` | no direct runtime primitive registration found |
 | `vector` | `vector x y :: substr` |  | implemented | `vector` | mapped to primitive 'vector' |
 
+## Missing 22 (canonical list)
+`TTY`, `button`, `dclear`, `dcomp`, `dmove`, `dmovec`, `dsoff`, `dson`, `edtarget`, `filin`, `indisp`, `junta`, `kbck`, `kbd`, `mouse`, `mx`, `my`, `newchars`, `redo`, `reread`, `show`, `sub`
+
 ## README limitations relevant to parity
 - `String` class not fully implemented (literals interned as atoms)
 - Display/graphics primitives not implemented
