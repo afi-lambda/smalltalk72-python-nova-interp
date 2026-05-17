@@ -6,10 +6,9 @@ from pathlib import Path
 from st72_reader import Reader
 
 _SKIP_NAMES = {
-    "class", "number", "vector", "atom", "string", "arec", "float", "falseclass",
-    "read", "print", "nprint", "substr", "leech", "mem", "mouse", "kbd", "TTY",
-    "disp", "stream", "dispframe", "newchars", "type", "fix", "getvec", "shocode",
-    "apply", "evapply", "junta", "expand", "index", "tablscan", "kbck",
+    "substr", "leech", "mouse", "kbd", "TTY",
+    "disp", "stream", "dispframe", "newchars", "type", "fix", "shocode",
+    "junta", "index", "tablscan", "kbck",
     "dclear", "dcomp", "dmove", "dmovec", "go", "goto", "turn",
 }
 
@@ -60,7 +59,7 @@ def load_alldefs_kernel(st, path: str, *, strict: bool = False) -> dict:
         if "CODE" in body.upper():
             stats["skipped_code"] += 1
             continue
-        if name in _SKIP_NAMES or len(name) == 1:
+        if name in _SKIP_NAMES:
             stats["skipped_unsupported"] += 1
             continue
 

@@ -12,17 +12,17 @@ Project: /home/alain/smalltalk72-python-nova-interp
 
 ## Summary
 - Total unique `to` definitions parsed: 61
-- Implemented: 14
-- Partial: 24
-- Missing: 23
+- Implemented: 36
+- Partial: 3
+- Missing: 22
 
 ## Registered primitives detected
-Atom, Number, again, apret, done, eq, false, fetch, get, isnew, match, mem, mkins, null, peekr, put, qfet, quot, repeat, rself, to
+#, -, ::, Atom, Number, addto, again, apply, apret, atom, class, core, cr, done, eq, ev, evapply, expand, false, fetch, float, get, getvec, if, is, isnew, match, mem, mkins, nprint, null, number, peekr, put, qfet, quot, read, repeat, rself, string, t, to, vector
 
 ## CODE-tagged entries
 | to name | CODE | status | mapped primitive |
 |---|---|---|---|
-| `read` | 2 | partial | `read` |
+| `read` | 2 | implemented | `read` |
 | `isnew` | 5 | implemented | `isnew` |
 | `again` | 6 | implemented | `again` |
 | `@` | 9 | implemented | `quot` |
@@ -30,8 +30,8 @@ Atom, Number, again, apret, done, eq, false, fetch, get, isnew, match, mem, mkin
 | `eq` | 15 | implemented | `eq` |
 | `?` | 17 | implemented | `match` |
 | `:` | 18 | implemented | `fetch` |
-| `atom` | 29 | partial | `atom` |
-| `::` | 36 | missing | `::` |
+| `atom` | 29 | implemented | `atom` |
+| `::` | 36 | implemented | `::` |
 | `dclear` | 52 | missing | `dclear` |
 | `dcomp` | 53 | missing | `dcomp` |
 | `dmove` | 54 | missing | `dmove` |
@@ -40,22 +40,22 @@ Atom, Number, again, apret, done, eq, false, fetch, get, isnew, match, mem, mkin
 ## Full audit table
 | to name | raw header | CODE | status | mapped | note |
 |---|---|---|---|---|---|
-| `#` | `#` |  | partial | `#` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `-` | `- x` |  | partial | `-` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `#` | `#` |  | implemented | `#` | mapped to primitive '#' |
+| `-` | `- x` |  | implemented | `-` | mapped to primitive '-' |
 | `:` | `:` | 18 | implemented | `fetch` | mapped to primitive 'fetch' |
-| `::` | `::` | 36 | missing | `::` | no direct runtime primitive registration found |
+| `::` | `::` | 36 | implemented | `::` | mapped to primitive '::' |
 | `?` | `?` | 17 | implemented | `match` | mapped to primitive 'match' |
 | `@` | `@` | 9 | implemented | `quot` | mapped to primitive 'quot' |
 | `^` | `^` | 13 | implemented | `apret` | mapped to primitive 'apret' |
-| `addto` | `addto func v w` |  | partial | `addto` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `addto` | `addto func v w` |  | implemented | `addto` | mapped to primitive 'addto' |
 | `again` | `again` | 6 | implemented | `again` | mapped to primitive 'again' |
-| `apply` | `apply x y` |  | partial | `apply` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `apply` | `apply x y` |  | implemented | `apply` | mapped to primitive 'apply' |
 | `arec` | `arec x y` |  | partial | `arec` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `atom` | `atom x y` | 29 | partial | `atom` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `atom` | `atom x y` | 29 | implemented | `atom` | mapped to primitive 'atom' |
 | `button` | `button n` |  | missing | `button` | no direct runtime primitive registration found |
-| `class` | `class x y` |  | partial | `class` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `core` | `core` |  | partial | `core` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `cr` | `cr` |  | partial | `cr` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `class` | `class x y` |  | implemented | `class` | mapped to primitive 'class' |
+| `core` | `core` |  | implemented | `core` | mapped to primitive 'core' |
+| `cr` | `cr` |  | implemented | `cr` | mapped to primitive 'cr' |
 | `dclear` | `dclear` | 52 | missing | `dclear` | no direct runtime primitive registration found |
 | `dcomp` | `dcomp` | 53 | missing | `dcomp` | no direct runtime primitive registration found |
 | `dmove` | `dmove` | 54 | missing | `dmove` | no direct runtime primitive registration found |
@@ -65,17 +65,17 @@ Atom, Number, again, apret, done, eq, false, fetch, get, isnew, match, mem, mkin
 | `dson` | `dson` |  | missing | `dson` | no direct runtime primitive registration found |
 | `edtarget` | `edtarget` |  | missing | `edtarget` | no direct runtime primitive registration found |
 | `eq` | `eq x` | 15 | implemented | `eq` | mapped to primitive 'eq' |
-| `ev` | `ev` |  | partial | `ev` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `evapply` | `evapply x y` |  | partial | `evapply` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `expand` | `expand x` |  | partial | `expand` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `ev` | `ev` |  | implemented | `ev` | mapped to primitive 'ev' |
+| `evapply` | `evapply x y` |  | implemented | `evapply` | mapped to primitive 'evapply' |
+| `expand` | `expand x` |  | implemented | `expand` | mapped to primitive 'expand' |
 | `falseclass` | `falseclass x y` |  | implemented | `false` | mapped to primitive 'false' |
 | `filin` | `filin fi :: ev` |  | missing | `filin` | no direct runtime primitive registration found |
-| `float` | `float x y :: fprint` |  | partial | `float` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `float` | `float x y :: fprint` |  | implemented | `float` | mapped to primitive 'float' |
 | `GET` | `GET x y` |  | implemented | `get` | mapped to primitive 'get' |
-| `getvec` | `getvec` |  | partial | `getvec` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `if` | `if exp` |  | partial | `if` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `getvec` | `getvec` |  | implemented | `getvec` | mapped to primitive 'getvec' |
+| `if` | `if exp` |  | implemented | `if` | mapped to primitive 'if' |
 | `indisp` | `indisp disp` |  | missing | `indisp` | no direct runtime primitive registration found |
-| `is` | `is` |  | partial | `is` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `is` | `is` |  | implemented | `is` | mapped to primitive 'is' |
 | `isnew` | `isnew` | 5 | implemented | `isnew` | mapped to primitive 'isnew' |
 | `junta` | `junta` |  | missing | `junta` | no direct runtime primitive registration found |
 | `kbck` | `kbck` |  | missing | `kbck` | no direct runtime primitive registration found |
@@ -86,21 +86,21 @@ Atom, Number, again, apret, done, eq, false, fetch, get, isnew, match, mem, mkin
 | `my` | `my` |  | missing | `my` | no direct runtime primitive registration found |
 | `newchars` | `newchars fil i j new old str` |  | missing | `newchars` | no direct runtime primitive registration found |
 | `nil` | `nil x` |  | partial | `nil` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
-| `nprint` | `nprint digit n` |  | partial | `nprint` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `nprint` | `nprint digit n` |  | implemented | `nprint` | mapped to primitive 'nprint' |
 | `null` | `null x` |  | implemented | `null` | mapped to primitive 'null' |
-| `number` | `number x y :: nprint` |  | partial | `number` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `number` | `number x y :: nprint` |  | implemented | `number` | mapped to primitive 'number' |
 | `print` | `print` |  | partial | `print` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
 | `PUT` | `PUT x y z` |  | implemented | `put` | mapped to primitive 'put' |
-| `read` | `read` | 2 | partial | `read` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `read` | `read` | 2 | implemented | `read` | mapped to primitive 'read' |
 | `redo` | `redo` |  | missing | `redo` | no direct runtime primitive registration found |
 | `repeat` | `repeat token` |  | implemented | `repeat` | mapped to primitive 'repeat' |
 | `reread` | `reread n i p reader` |  | missing | `reread` | no direct runtime primitive registration found |
 | `show` | `show showpretty` |  | missing | `show` | no direct runtime primitive registration found |
-| `string` | `string x y :: substr` |  | partial | `string` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `string` | `string x y :: substr` |  | implemented | `string` | mapped to primitive 'string' |
 | `sub` | `sub disp` |  | missing | `sub` | no direct runtime primitive registration found |
-| `t` | `t tabin index` |  | partial | `t` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `t` | `t tabin index` |  | implemented | `t` | mapped to primitive 't' |
 | `TTY` | `TTY` |  | missing | `TTY` | no direct runtime primitive registration found |
-| `vector` | `vector x y :: substr` |  | partial | `vector` | no direct primitive mapping; candidate for non-CODE runtime loading via bootstrap loader |
+| `vector` | `vector x y :: substr` |  | implemented | `vector` | mapped to primitive 'vector' |
 
 ## README limitations relevant to parity
 - `String` class not fully implemented (literals interned as atoms)
