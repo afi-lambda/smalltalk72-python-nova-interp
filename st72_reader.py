@@ -33,7 +33,8 @@ class Reader:
     """
 
     # Characters that are always single tokens
-    SPECIALS = set('.:?"%!#_')
+    SPECIALS = set('.:?"%!#_<>~=+-*/&,@;$`{}')
+    COMPOSITES = ("<=", ">=", "~=", "<-", "=>", "::", "~~", "&*", "&+", "&-", "&/")
 
     def __init__(self, st: 'ST72'):
         self.st  = st
@@ -89,17 +90,30 @@ class Reader:
             ch = self.src[self.pos]
 
             # End of sub-expression
-            if ch == ']':
-                if terminator == ']':
+            if ch in ")]":
+                if terminator == ch:
                     self.pos += 1
                 break
 
             # Start of sub-expression: compile into vector
-            if ch == '[':
+            if ch in "([":
                 self.pos += 1
-                sub = self._read_list(terminator=']')
+                sub = self._read_list(terminator=']' if ch == '[' else ')')
                 vec = st.make_vector(sub)
                 result.append(vec)
+                continue
+
+            # Composite tokens
+            two = self.src[self.pos:self.pos + 2]
+            if two in self.COMPOSITES:
+                self.pos += 2
+                result.append(st.atoms.intern(two))
+                continue
+
+            # Signed integer fast-path
+            if ch in '+-' and self.pos + 1 < len(self.src) and self.src[self.pos + 1].isdigit():
+                n = self._read_signed_int()
+                result.append(self._intern_word(n))
                 continue
 
             # Single-character special tokens
@@ -143,8 +157,15 @@ class Reader:
         start = self.pos
         while self.pos < len(self.src):
             ch = self.src[self.pos]
-            if ch in ' \t\n\r[]' or ch in self.SPECIALS:
+            if ch in ' \t\n\r[]()' or ch in self.SPECIALS:
                 break
+            self.pos += 1
+        return self.src[start:self.pos]
+
+    def _read_signed_int(self) -> str:
+        start = self.pos
+        self.pos += 1
+        while self.pos < len(self.src) and self.src[self.pos].isdigit():
             self.pos += 1
         return self.src[start:self.pos]
 

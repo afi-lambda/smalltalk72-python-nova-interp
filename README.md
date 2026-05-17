@@ -39,6 +39,16 @@ python3 st72_tests.py
 python3 st72.py repl
 ```
 
+Optional live bootstrap (safe non-CODE defs from ALLDEFS):
+
+```python
+from st72 import ST72
+from st72_prims import register_all
+st = ST72()
+register_all(st)
+st.bootstrap_alldefs("ALLDEFS.ASCII.txt")
+```
+
 ### REPL example
 
 ```

@@ -28,6 +28,12 @@ def test_reader_whitespace_and_token_boundaries():
     toks = r.read_str('?:"%#!_')
     assert toks == [st.A_QUEST, st.A_COLN, st.A_QUOTE, st.A_MACH, st.A_NOEV, st.A_BANG, st.A_ARROW]
 
+    names = [st.atoms.name_of(t) or st.value_repr(t) for t in r.read_str("a <- 1 . b => [2] . c ~= 3 . d &* 4 .")]
+    assert "<-" in names and "=>" in names and "~=" in names and "&*" in names
+
+    toks = r.read_str("(1 + 2) .")
+    assert st.is_vector(toks[0]) and toks[1] == st.A_PER
+
 
 def test_reader_edge_inputs_and_repl_paths(monkeypatch, capsys):
     st, r = make_machine()

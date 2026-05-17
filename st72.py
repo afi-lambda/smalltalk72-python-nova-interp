@@ -1073,6 +1073,10 @@ class ST72:
         from st72_reader import Reader
         return Reader(self).run(source, max_steps)
 
+    def bootstrap_alldefs(self, path: str, strict: bool = False) -> dict:
+        from st72_bootstrap import load_alldefs_kernel
+        return load_alldefs_kernel(self, path, strict=strict)
+
     # ------------------------------------------------------------------
     # High-level helpers
     # ------------------------------------------------------------------
